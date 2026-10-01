@@ -90,6 +90,18 @@ function videoEmbed(videoId, title) {
 </div>`;
 }
 
+function marqueeBand(en) {
+  const items = en
+    ? ['Emergency transport', 'Hospital transport', 'Wheelchair transport', 'Airport transport', 'Mobility scooter transport', 'Call now', '24/7 available']
+    : ['Spoedvervoer', 'Ziekenhuisvervoer', 'Rolstoelvervoer', 'Luchthavenvervoer', 'Scootmobiel vervoer', 'Bel direct', '24/7 bereikbaar'];
+  const spans = items.map(t => `<span>${t}</span>`).join('');
+  return `<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    ${spans}${spans}
+  </div>
+</div>`;
+}
+
 function altPathFor(canonicalPath, locale) {
   if (locale === 'en') return canonicalPath.replace(/^en\/?/, '');
   return canonicalPath ? `en/${canonicalPath}` : 'en';
@@ -1038,14 +1050,7 @@ function buildHomeBody(locale = 'nl') {
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    ${en ? `<span>Emergency transport</span><span>Hospital transport</span><span>Wheelchair transport</span><span>Airport transport</span><span>Mobility scooter transport</span><span>Call now</span><span>24/7 available</span>
-    <span>Emergency transport</span><span>Hospital transport</span><span>Wheelchair transport</span><span>Airport transport</span><span>Mobility scooter transport</span><span>Call now</span><span>24/7 available</span>`
-    : `<span>Spoedvervoer</span><span>Ziekenhuisvervoer</span><span>Rolstoelvervoer</span><span>Luchthavenvervoer</span><span>Scootmobiel vervoer</span><span>Bel direct</span><span>24/7 bereikbaar</span>
-    <span>Spoedvervoer</span><span>Ziekenhuisvervoer</span><span>Rolstoelvervoer</span><span>Luchthavenvervoer</span><span>Scootmobiel vervoer</span><span>Bel direct</span><span>24/7 bereikbaar</span>`}
-  </div>
-</div>
+${marqueeBand(en)}
 
 <!-- CALL BANNER -->
 <section class="call-banner">
@@ -1140,6 +1145,9 @@ function buildHomeBody(locale = 'nl') {
     <p class="big reveal">${en ? 'Most carriers want you to plan at least a day ahead.' : 'De meeste vervoerders willen dat u minstens een dag vooruit plant.'} <span class="serif-i">${en ? "We're here for exactly the moment that isn't possible." : 'Wij zijn er juist voor het moment dat dat niet kan.'}</span></p>
   </div>
 </section>
+
+<!-- MARQUEE -->
+${marqueeBand(en)}
 
 <!-- ONZE BELOFTE -->
 <section id="belofte">
@@ -1262,10 +1270,10 @@ function buildHomeBody(locale = 'nl') {
     </div>
     <div class="gallery">
       <figure class="photo-card tall reveal"><img src="/img/interieur-rolstoelbus.jpg" alt="${en ? 'Interior of the wheelchair-accessible vehicle with wheelchair space and ramp' : 'Interieur van de rolstoelbus met rolstoelplaats en laadklep'}" width="960" height="1280" loading="lazy"></figure>
-      <figure class="photo-card reveal reveal-d1"><img src="/img/amsterdam-molen-gooyer.jpg" alt="${en ? 'Wheelchair-accessible vehicle with open doors by a windmill in Amsterdam' : 'Rolstoelbus met geopende deuren bij een molen in Amsterdam'}" width="1280" height="960" loading="lazy"></figure>
+      <figure class="photo-card reveal reveal-d1"><img src="/img/rolstoel-rood-instappen-schiphol.jpg" alt="${en ? 'Passenger in a red wheelchair boarding via the deployed ramp' : 'Passagier in een rode rolstoel stapt in via de uitgeklapte laadklep'}" width="1050" height="1400" loading="lazy"></figure>
       <figure class="photo-card reveal reveal-d2"><img src="/img/rolstoelbus-baksteen-laadklep.jpg" alt="${en ? 'Wheelchair-accessible vehicle with ramp in front of a red-brick building' : 'Rolstoelbus met laadklep voor een gebouw van rode baksteen'}" width="1280" height="960" loading="lazy"></figure>
-      <figure class="photo-card reveal reveal-d1"><img src="/img/rolstoelbus-laadklep-hoogbouw.jpg" alt="${en ? 'Wheelchair-accessible vehicle with ramp deployed, high-rise building in the background' : 'Rolstoelbus met uitgeklapte laadklep, hoogbouw op de achtergrond'}" width="1280" height="960" loading="lazy"></figure>
-      <figure class="photo-card reveal reveal-d2"><img src="/img/rolstoelbus-landgoed-poort.jpg" alt="${en ? 'Wheelchair-accessible vehicle at an estate gate of red brick' : 'Rolstoelbus bij een landgoedpoort met rode baksteen'}" width="1280" height="960" loading="lazy"></figure>
+      <figure class="photo-card reveal reveal-d1"><img src="/img/scootmobiel-blauw-overkapping.jpg" alt="${en ? 'Mobility scooter boarding via the deployed ramp, under a covered entrance' : 'Scootmobiel stapt in via de uitgeklapte laadklep, onder een overkapping'}" width="1050" height="1400" loading="lazy"></figure>
+      <figure class="photo-card reveal reveal-d2"><img src="/img/rolstoelbus-laadklep-schiphol-vertrek.jpg" alt="${en ? 'Wheelchair-accessible vehicle with the ramp deployed at the departures curb' : 'Rolstoelbus met uitgeklapte laadklep bij vertrekhal'}" width="1280" height="960" loading="lazy"></figure>
       <figure class="photo-card reveal reveal-d1"><img src="/img/amsterdam-gracht-laadklep.jpg" alt="${en ? 'Wheelchair-accessible vehicle with ramp by an Amsterdam canal' : 'Rolstoelbus met laadklep bij een Amsterdamse gracht'}" width="1280" height="960" loading="lazy"></figure>
     </div>
   </div>
@@ -1286,12 +1294,15 @@ function buildHomeBody(locale = 'nl') {
   </div>
 </section>
 
+<!-- MARQUEE -->
+${marqueeBand(en)}
+
 <!-- OVER ONS -->
 <section id="over-ons">
   <div class="wrap">
     <div class="about-grid">
       <div class="about-photo reveal" style="background:none;padding:0">
-        <img src="/img/rolstoelbus-zijkant.jpg" alt="${en ? `${SITE.name} wheelchair-accessible vehicle, side view` : 'Rolstoelbus van Rolstoeltaxi Spoed, zijaanzicht'}" width="1600" height="1200" loading="lazy" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">
+        <img src="/img/rolstoelbus-amsterdam-gracht-diagonaal.jpg" alt="${en ? `${SITE.name} wheelchair-accessible vehicle, ramp deployed, photographed diagonally from behind` : 'Rolstoelbus van Rolstoeltaxi Spoed, met uitgeklapte laadklep, diagonaal van achteren gefotografeerd'}" width="1600" height="1200" loading="lazy" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">
       </div>
       <div class="about-copy">
         <span class="eyebrow reveal">${en ? 'Who we are' : 'Wie zijn wij'}</span>
