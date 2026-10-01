@@ -141,6 +141,22 @@ nav.scrolled{padding:14px 0;box-shadow:0 2px 18px rgba(15,26,46,.06)}
 .nav-spoed-dot{width:7px;height:7px;border-radius:50%;background:#e0453f;flex-shrink:0;animation:pulse-dot 1.8s ease-in-out infinite}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.7)}}
 @media(prefers-reduced-motion:reduce){.nav-spoed-dot{animation:none}}
+
+/* ---------- live-piepje op elke belknop en het telefoonnummer ---------- */
+a.btn[href^="tel:"]::before,
+a.dock-call::before,
+.call-banner a.num::before{
+  content:"";display:inline-block;flex-shrink:0;border-radius:50%;background:#ff5449;
+  animation:pulse-dot 1.8s ease-in-out infinite;
+}
+a.btn[href^="tel:"]::before{width:8px;height:8px;margin-right:9px;vertical-align:middle}
+a.dock-call::before{width:8px;height:8px;margin-right:0}
+.hero-cta-main a.btn[href^="tel:"]::before{margin-right:0}
+.call-banner a.num{display:inline-flex;align-items:center;gap:11px}
+.call-banner a.num::before{width:12px;height:12px}
+@media(prefers-reduced-motion:reduce){
+  a.btn[href^="tel:"]::before,a.dock-call::before,.call-banner a.num::before{animation:none}
+}
 .mobile-menu a.nav-spoed{color:#ff6b63!important;display:flex;align-items:center;gap:10px}
 .lang-switch{display:flex!important;align-items:center;gap:6px;font-weight:700!important;font-size:13px!important;padding:7px 12px;border:1.5px solid var(--line);border-radius:20px;color:var(--ink)!important}
 .lang-switch:hover{border-color:var(--accent);color:var(--accent)!important}
