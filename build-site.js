@@ -12,6 +12,7 @@ const SITE = {
   whatsapp: '31628761078',
   web3formsKey: '', // vul hier de Web3Forms access key in om e-mail te koppelen
   email: 'info@rolstoeltaxispoed.nl',
+  gtmId: 'GTM-PJ92NFWQ', // Google Tag Manager (regelt GA4 + Google Ads conversietracking)
 };
 
 const SERVICES = require('./content/services.js');
@@ -130,7 +131,18 @@ function head({ title, description, canonicalPath, prefix, extraLd, locale = 'nl
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<!-- GTM: paste container snippet here -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{
+  ad_storage:'denied',
+  ad_user_data:'denied',
+  ad_personalization:'denied',
+  analytics_storage:'denied',
+  functionality_storage:'granted',
+  security_storage:'granted'
+});
+</script>
 ${extraLd || ''}
 <style>
 ${CSS}
@@ -264,27 +276,57 @@ function cookieBanner(locale = 'nl') {
   const base = en ? '/en' : '';
   const heading = en ? 'We use cookies' : 'Wij gebruiken cookies';
   const text = en
-    ? `This website only uses functional cookies to work properly. Want to know more? Read our <a href="${base}/privacyverklaring">privacy policy</a>.`
-    : `Deze website gebruikt alleen functionele cookies om goed te werken. Meer weten? Lees onze <a href="${base}/privacyverklaring">privacyverklaring</a>.`;
+    ? `Necessary cookies keep this site working. We only place analytics and advertising cookies (Google Analytics, Google Ads) with your consent. Read more in our <a href="${base}/privacyverklaring">privacy policy</a>.`
+    : `Noodzakelijke cookies zorgen dat deze site werkt. Analytische en advertentiecookies (Google Analytics, Google Ads) plaatsen we alleen met uw toestemming. Meer weten? Lees onze <a href="${base}/privacyverklaring">privacyverklaring</a>.`;
   return `<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="${en ? 'Cookie notice' : 'Cookiemelding'}">
   <h2>${heading}</h2>
   <p>${text}</p>
-  <div class="cb-actions"><button type="button" class="btn btn-yellow" id="cookieAccept">${en ? 'Accept' : 'Akkoord'}</button></div>
+  <div class="cb-actions">
+    <button type="button" class="btn btn-ghost" id="cookieDecline">${en ? 'Necessary only' : 'Alleen noodzakelijk'}</button>
+    <button type="button" class="btn btn-yellow" id="cookieAccept">${en ? 'Accept' : 'Akkoord'}</button>
+  </div>
 </div>
 <script>
 (function () {
-  var KEY = 'rtsCookieOk';
+  var KEY = 'rtsConsentV1';
+  var GTM_ID = '${SITE.gtmId}';
   var banner = document.getElementById('cookieBanner');
-  var btn = document.getElementById('cookieAccept');
-  if (!banner || !btn) return;
-  var seen = false;
-  try { seen = !!localStorage.getItem(KEY); } catch (e) {}
-  if (!seen) setTimeout(function () { banner.classList.add('show'); document.body.classList.add('cc-open'); }, 800);
-  btn.addEventListener('click', function () {
+  var acceptBtn = document.getElementById('cookieAccept');
+  var declineBtn = document.getElementById('cookieDecline');
+  if (!banner || !acceptBtn || !declineBtn) return;
+
+  var gtmLoaded = false;
+  function loadGTM() {
+    if (gtmLoaded || !GTM_ID) return;
+    gtmLoaded = true;
+    dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtm.js?id=' + GTM_ID;
+    document.head.appendChild(s);
+  }
+
+  var stored = null;
+  try { stored = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+
+  if (stored && stored.granted) {
+    gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' });
+    loadGTM();
+  } else if (!stored) {
+    setTimeout(function () { banner.classList.add('show'); document.body.classList.add('cc-open'); }, 800);
+  }
+
+  function choose(granted) {
     banner.classList.remove('show');
     document.body.classList.remove('cc-open');
-    try { localStorage.setItem(KEY, '1'); } catch (e) {}
-  });
+    try { localStorage.setItem(KEY, JSON.stringify({ granted: granted, ts: new Date().toISOString() })); } catch (e) {}
+    if (granted) {
+      gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' });
+      loadGTM();
+    }
+  }
+  acceptBtn.addEventListener('click', function () { choose(true); });
+  declineBtn.addEventListener('click', function () { choose(false); });
 })();
 </script>`;
 }
@@ -1938,7 +1980,7 @@ function buildPrivacyBody(locale = 'nl') {
     <p>For questions about transport, rates or reimbursement, see our <a href="${base}/veelgestelde-vragen" style="color:var(--accent)">frequently asked questions page</a> or use the <a href="${base}/contact" style="color:var(--accent)">contact form</a>.</p>
 
     <h2>Cookies</h2>
-    <p>This website itself only places technically necessary functionality. Some pages include an instruction video from YouTube. It only loads once you click the play button yourself; from that moment on, YouTube may place cookies according to its own privacy policy. Should analytics or marketing cookies be added, this policy will be updated and we will ask for your consent where required.</p>`
+    <p>This website uses necessary cookies to work properly, for example to remember your cookie choice. We only place analytics cookies (Google Analytics) and advertising cookies (Google Ads, via Google Tag Manager) after you give consent via the cookie banner. You can accept or decline this at any time; nothing is tracked before you choose "Accept". Some pages also include an instruction video from YouTube, which only loads once you click the play button yourself; from that moment on, YouTube may place cookies according to its own privacy policy.</p>`
     : `<h2>Wie zijn wij</h2>
     <p>${SITE.name}, onderdeel van ${SITE.parentBrand}, is verantwoordelijk voor de verwerking van persoonsgegevens zoals beschreven in deze privacyverklaring. Vragen? Neem contact op via <a href="mailto:${SITE.email}" style="color:var(--accent)">${SITE.email}</a>.</p>
 
@@ -1965,7 +2007,7 @@ function buildPrivacyBody(locale = 'nl') {
     <p>Voor vragen over vervoer, tarieven of vergoeding kunt u terecht op onze <a href="${base}/veelgestelde-vragen" style="color:var(--accent)">pagina met veelgestelde vragen</a> of via het <a href="${base}/contact" style="color:var(--accent)">contactformulier</a>.</p>
 
     <h2>Cookies</h2>
-    <p>Deze website plaatst zelf alleen technisch noodzakelijke functionaliteit. Op enkele pagina's staat een instructievideo van YouTube. Deze wordt pas geladen als u zelf op de afspeelknop klikt; vanaf dat moment kan YouTube cookies plaatsen volgens hun eigen privacybeleid. Zodra er analytische of marketingcookies worden toegevoegd, wordt deze verklaring aangevuld en vragen wij waar nodig om uw toestemming.</p>`}
+    <p>Deze website gebruikt noodzakelijke cookies om goed te werken, bijvoorbeeld om uw cookiekeuze te onthouden. Analytische cookies (Google Analytics) en advertentiecookies (Google Ads, via Google Tag Manager) plaatsen wij alleen nadat u hiervoor toestemming geeft via de cookiebanner. U kunt dit op elk moment accepteren of weigeren; er wordt niets gemeten voordat u op "Akkoord" klikt. Op enkele pagina's staat ook een instructievideo van YouTube. Deze wordt pas geladen als u zelf op de afspeelknop klikt; vanaf dat moment kan YouTube cookies plaatsen volgens hun eigen privacybeleid.</p>`}
   </div>
 </section>`;
 }

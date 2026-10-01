@@ -19,7 +19,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<!-- GTM: paste container snippet here -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{
+  ad_storage:'denied',
+  ad_user_data:'denied',
+  ad_personalization:'denied',
+  analytics_storage:'denied',
+  functionality_storage:'granted',
+  security_storage:'granted'
+});
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1271,23 +1282,53 @@ body.cc-open .cta-dock{display:none!important}
 
 <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Cookie notice">
   <h2>We use cookies</h2>
-  <p>This website only uses functional cookies to work properly. Want to know more? Read our <a href="/en/privacyverklaring">privacy policy</a>.</p>
-  <div class="cb-actions"><button type="button" class="btn btn-yellow" id="cookieAccept">Accept</button></div>
+  <p>Necessary cookies keep this site working. We only place analytics and advertising cookies (Google Analytics, Google Ads) with your consent. Read more in our <a href="/en/privacyverklaring">privacy policy</a>.</p>
+  <div class="cb-actions">
+    <button type="button" class="btn btn-ghost" id="cookieDecline">Necessary only</button>
+    <button type="button" class="btn btn-yellow" id="cookieAccept">Accept</button>
+  </div>
 </div>
 <script>
 (function () {
-  var KEY = 'rtsCookieOk';
+  var KEY = 'rtsConsentV1';
+  var GTM_ID = 'GTM-PJ92NFWQ';
   var banner = document.getElementById('cookieBanner');
-  var btn = document.getElementById('cookieAccept');
-  if (!banner || !btn) return;
-  var seen = false;
-  try { seen = !!localStorage.getItem(KEY); } catch (e) {}
-  if (!seen) setTimeout(function () { banner.classList.add('show'); document.body.classList.add('cc-open'); }, 800);
-  btn.addEventListener('click', function () {
+  var acceptBtn = document.getElementById('cookieAccept');
+  var declineBtn = document.getElementById('cookieDecline');
+  if (!banner || !acceptBtn || !declineBtn) return;
+
+  var gtmLoaded = false;
+  function loadGTM() {
+    if (gtmLoaded || !GTM_ID) return;
+    gtmLoaded = true;
+    dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtm.js?id=' + GTM_ID;
+    document.head.appendChild(s);
+  }
+
+  var stored = null;
+  try { stored = JSON.parse(localStorage.getItem(KEY)); } catch (e) {}
+
+  if (stored && stored.granted) {
+    gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' });
+    loadGTM();
+  } else if (!stored) {
+    setTimeout(function () { banner.classList.add('show'); document.body.classList.add('cc-open'); }, 800);
+  }
+
+  function choose(granted) {
     banner.classList.remove('show');
     document.body.classList.remove('cc-open');
-    try { localStorage.setItem(KEY, '1'); } catch (e) {}
-  });
+    try { localStorage.setItem(KEY, JSON.stringify({ granted: granted, ts: new Date().toISOString() })); } catch (e) {}
+    if (granted) {
+      gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' });
+      loadGTM();
+    }
+  }
+  acceptBtn.addEventListener('click', function () { choose(true); });
+  declineBtn.addEventListener('click', function () { choose(false); });
 })();
 </script>
 
