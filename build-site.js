@@ -103,6 +103,16 @@ function marqueeBand(en) {
 </div>`;
 }
 
+function callBanner(en) {
+  return `<section class="call-banner">
+  <div class="wrap">
+    <span class="lbl">${ICONS.phoneCall} ${en ? 'Call now, schedule a driver right away:' : 'Bel nu, direct een chauffeur inplannen:'}</span>
+    <div class="call-banner-video">${videoEmbed('FZnAOHJuVqk', en ? 'Instruction film: securing a wheelchair in the vehicle' : 'Instructiefilm: rolstoel vastzetten in de rolstoelbus')}</div>
+    <a href="tel:${SITE.phoneTel}" class="num">${SITE.phoneDisplay}</a>
+  </div>
+</section>`;
+}
+
 function altPathFor(canonicalPath, locale) {
   if (locale === 'en') return canonicalPath.replace(/^en\/?/, '');
   return canonicalPath ? `en/${canonicalPath}` : 'en';
@@ -497,9 +507,9 @@ function buildServiceBody(svc, locale = 'nl') {
       <span class="eyebrow">${d.eyebrow}</span>
       <h1>${d.h1}</h1>
       <p class="lead">${d.lead}</p>
-      <div class="hero-cta">
-        <a href="tel:${SITE.phoneTel}" class="btn btn-yellow">${en ? 'Call now' : 'Bel direct'}: ${SITE.phoneDisplay}</a>
-        <a href="${base}/contact" class="btn btn-ghost">${en ? 'Or book online' : 'Of plan online'}</a>
+      <div class="hero-cta hero-cta-main">
+        <a href="tel:${SITE.phoneTel}" class="btn btn-yellow">${en ? 'Call now' : 'Bel direct'}</a>
+        <a href="${base}/contact" class="btn btn-ghost">${en ? 'Book now' : 'Plan nu'}</a>
       </div>
     </div>
   </div>
@@ -525,6 +535,10 @@ function buildServiceBody(svc, locale = 'nl') {
     </div>
   </div>
 </section>
+
+<!-- MARQUEE + CALL BANNER -->
+${marqueeBand(en)}
+${callBanner(en)}
 
 <!-- UITGEBREID -->
 <section>
@@ -736,9 +750,9 @@ function buildCityBody(c, locale = 'nl') {
       <span class="eyebrow">${eyebrow}</span>
       <h1>${h1}</h1>
       <div class="proof"><span><b>24/7</b> ${en ? 'available' : 'bereikbaar'}</span><span><b>10+</b> ${en ? 'years experience' : 'jaar ervaring'}</span><span><b>5000+</b> ${en ? 'rides' : 'ritten'}</span></div>
-      <div class="hero-cta">
-        <a href="tel:${SITE.phoneTel}" class="btn btn-yellow" data-cta="primary">${en ? 'Call now' : 'Bel direct'}: ${SITE.phoneDisplay}</a>
-        <a href="${base}/contact" class="btn btn-ghost">${en ? 'Or book online' : 'Of plan online'}</a>
+      <div class="hero-cta hero-cta-main">
+        <a href="tel:${SITE.phoneTel}" class="btn btn-yellow" data-cta="primary">${en ? 'Call now' : 'Bel direct'}</a>
+        <a href="${base}/contact" class="btn btn-ghost">${en ? 'Book now' : 'Plan nu'}</a>
       </div>
       <p class="lead">${d.lead}</p>
     </div>
@@ -763,6 +777,10 @@ function buildCityBody(c, locale = 'nl') {
     </div>
   </div>
 </section>
+
+<!-- MARQUEE + CALL BANNER -->
+${marqueeBand(en)}
+${callBanner(en)}
 
 <!-- PLEKKEN -->
 <section class="band-2">
@@ -907,9 +925,9 @@ function buildDienstenHub(locale = 'nl') {
       <span class="eyebrow">${en ? 'Services' : 'Diensten'}</span>
       <h1>${en ? 'All services from' : 'Alle diensten van'} <span class="serif-i">${SITE.name}</span></h1>
       <div class="proof"><span><b>24/7</b> ${en ? 'available' : 'bereikbaar'}</span><span><b>10+</b> ${en ? 'years experience' : 'jaar ervaring'}</span><span><b>${SERVICES.length}</b> ${en ? 'services' : 'diensten'}</span></div>
-      <div class="hero-cta">
-        <a href="tel:${SITE.phoneTel}" class="btn btn-yellow" data-cta="primary">${en ? 'Call now' : 'Bel direct'}: ${SITE.phoneDisplay}</a>
-        <a href="${base}/contact" class="btn btn-ghost">${en ? 'Or book online' : 'Of plan online'}</a>
+      <div class="hero-cta hero-cta-main">
+        <a href="tel:${SITE.phoneTel}" class="btn btn-yellow" data-cta="primary">${en ? 'Call now' : 'Bel direct'}</a>
+        <a href="${base}/contact" class="btn btn-ghost">${en ? 'Book now' : 'Plan nu'}</a>
       </div>
       <p class="lead">${en ? 'From emergency transport to funeral transport: one phone number, the same vehicles and the same drivers for every ride.' : 'Van spoedvervoer tot uitvaartvervoer: één telefoonnummer, dezelfde bussen en dezelfde chauffeurs voor elke rit.'}</p>
     </div>
@@ -977,9 +995,9 @@ function buildLocatiesHub(locale = 'nl') {
       <span class="eyebrow">${en ? 'Locations' : 'Locaties'}</span>
       <h1>${en ? 'Wheelchair taxi in' : 'Rolstoeltaxi in'} <span class="serif-i">${CITIES.length} ${en ? 'locations' : 'locaties'}</span></h1>
       <div class="proof"><span><b>24/7</b> ${en ? 'available' : 'bereikbaar'}</span><span><b>10+</b> ${en ? 'years experience' : 'jaar ervaring'}</span><span><b>5000+</b> ${en ? 'rides' : 'ritten'}</span></div>
-      <div class="hero-cta">
-        <a href="tel:${SITE.phoneTel}" class="btn btn-yellow" data-cta="primary">${en ? 'Call now' : 'Bel direct'}: ${SITE.phoneDisplay}</a>
-        <a href="${base}/contact" class="btn btn-ghost">${en ? 'Or book online' : 'Of plan online'}</a>
+      <div class="hero-cta hero-cta-main">
+        <a href="tel:${SITE.phoneTel}" class="btn btn-yellow" data-cta="primary">${en ? 'Call now' : 'Bel direct'}</a>
+        <a href="${base}/contact" class="btn btn-ghost">${en ? 'Book now' : 'Plan nu'}</a>
       </div>
       <p class="lead">${en ? "Choose your town and see where we pick you up, which rides we drive most often and how to arrange an emergency ride. Not on the list? Call us, we're happy to discuss the options." : 'Kies uw plaats en zie waar we u ophalen, welke ritten we vaak rijden en hoe u spoed regelt. Staat uw plaats er niet bij? Bel gerust, we bespreken de mogelijkheden.'}</p>
     </div>
@@ -1095,13 +1113,7 @@ function buildHomeBody(locale = 'nl') {
 ${marqueeBand(en)}
 
 <!-- CALL BANNER -->
-<section class="call-banner">
-  <div class="wrap">
-    <span class="lbl">${ICONS.phoneCall} ${en ? 'Call now, schedule a driver right away:' : 'Bel nu, direct een chauffeur inplannen:'}</span>
-    <div class="call-banner-video">${videoEmbed('FZnAOHJuVqk', en ? 'Instruction film: securing a wheelchair in the vehicle' : 'Instructiefilm: rolstoel vastzetten in de rolstoelbus')}</div>
-    <a href="tel:${SITE.phoneTel}" class="num">${SITE.phoneDisplay}</a>
-  </div>
-</section>
+${callBanner(en)}
 
 <!-- HOE STAPT U IN -->
 <section class="instap-section">

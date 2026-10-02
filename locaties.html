@@ -742,6 +742,13 @@ body.cc-open .cta-dock{display:none!important}
   .cookie-banner .cb-actions .btn{width:100%;justify-content:center}
 }
 
+/* ---------- consistentie: alle belknoppen en hero-knoppen gelijk aan de homepage ---------- */
+a.btn[href^="tel:"]{display:inline-flex;align-items:center;justify-content:center;gap:9px}
+a.btn[href^="tel:"]::before{margin-right:0;vertical-align:baseline}
+.page-hero .hero-cta-main,.page-hero.has-photo .hero-box .hero-cta-main{flex-wrap:nowrap;align-items:stretch;gap:14px;margin-bottom:22px}
+.page-hero .hero-cta-main .btn{flex:1}
+@media(max-width:420px){.page-hero .hero-cta-main{flex-direction:column}}
+
 </style>
 </head>
 <body>
@@ -789,9 +796,9 @@ body.cc-open .cta-dock{display:none!important}
       <span class="eyebrow">Locaties</span>
       <h1>Rolstoeltaxi in <span class="serif-i">27 locaties</span></h1>
       <div class="proof"><span><b>24/7</b> bereikbaar</span><span><b>10+</b> jaar ervaring</span><span><b>5000+</b> ritten</span></div>
-      <div class="hero-cta">
-        <a href="tel:+31628761078" class="btn btn-yellow" data-cta="primary">Bel direct: 06 2876 1078</a>
-        <a href="/contact" class="btn btn-ghost">Of plan online</a>
+      <div class="hero-cta hero-cta-main">
+        <a href="tel:+31628761078" class="btn btn-yellow" data-cta="primary">Bel direct</a>
+        <a href="/contact" class="btn btn-ghost">Plan nu</a>
       </div>
       <p class="lead">Kies uw plaats en zie waar we u ophalen, welke ritten we vaak rijden en hoe u spoed regelt. Staat uw plaats er niet bij? Bel gerust, we bespreken de mogelijkheden.</p>
     </div>

@@ -763,6 +763,13 @@ body.cc-open .cta-dock{display:none!important}
   .cookie-banner .cb-actions .btn{width:100%;justify-content:center}
 }
 
+/* ---------- consistentie: alle belknoppen en hero-knoppen gelijk aan de homepage ---------- */
+a.btn[href^="tel:"]{display:inline-flex;align-items:center;justify-content:center;gap:9px}
+a.btn[href^="tel:"]::before{margin-right:0;vertical-align:baseline}
+.page-hero .hero-cta-main,.page-hero.has-photo .hero-box .hero-cta-main{flex-wrap:nowrap;align-items:stretch;gap:14px;margin-bottom:22px}
+.page-hero .hero-cta-main .btn{flex:1}
+@media(max-width:420px){.page-hero .hero-cta-main{flex-direction:column}}
+
 </style>
 </head>
 <body>

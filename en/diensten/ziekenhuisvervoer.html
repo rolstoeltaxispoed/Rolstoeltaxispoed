@@ -765,6 +765,13 @@ body.cc-open .cta-dock{display:none!important}
   .cookie-banner .cb-actions .btn{width:100%;justify-content:center}
 }
 
+/* ---------- consistentie: alle belknoppen en hero-knoppen gelijk aan de homepage ---------- */
+a.btn[href^="tel:"]{display:inline-flex;align-items:center;justify-content:center;gap:9px}
+a.btn[href^="tel:"]::before{margin-right:0;vertical-align:baseline}
+.page-hero .hero-cta-main,.page-hero.has-photo .hero-box .hero-cta-main{flex-wrap:nowrap;align-items:stretch;gap:14px;margin-bottom:22px}
+.page-hero .hero-cta-main .btn{flex:1}
+@media(max-width:420px){.page-hero .hero-cta-main{flex-direction:column}}
+
 </style>
 </head>
 <body>
@@ -814,9 +821,9 @@ body.cc-open .cta-dock{display:none!important}
       <span class="eyebrow">Hospital · Care facility</span>
       <h1>Hospital transport in a wheelchair</h1>
       <p class="lead">An appointment with a specialist, an admission or a discharge: every minute counts with hospital transport. Rolstoeltaxi Spoed picks you up where you are and brings you calmly and safely to where you need to be, emergencies too.</p>
-      <div class="hero-cta">
-        <a href="tel:+31628761078" class="btn btn-yellow">Call now: 06 2876 1078</a>
-        <a href="/en/contact" class="btn btn-ghost">Or book online</a>
+      <div class="hero-cta hero-cta-main">
+        <a href="tel:+31628761078" class="btn btn-yellow">Call now</a>
+        <a href="/en/contact" class="btn btn-ghost">Book now</a>
       </div>
     </div>
   </div>
@@ -843,6 +850,23 @@ body.cc-open .cta-dock{display:none!important}
         </ul>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- MARQUEE + CALL BANNER -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Emergency transport</span><span>Hospital transport</span><span>Wheelchair transport</span><span>Airport transport</span><span>Mobility scooter transport</span><span>Call now</span><span>24/7 available</span><span>Emergency transport</span><span>Hospital transport</span><span>Wheelchair transport</span><span>Airport transport</span><span>Mobility scooter transport</span><span>Call now</span><span>24/7 available</span>
+  </div>
+</div>
+<section class="call-banner">
+  <div class="wrap">
+    <span class="lbl"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3h3l2 5-2.5 1.5a11 11 0 005 5L14 12l5 2v3a2 2 0 01-2.2 2A17 17 0 013 5.2 2 2 0 015 3z"/></svg> Call now, schedule a driver right away:</span>
+    <div class="call-banner-video"><div class="video-embed" data-video-id="FZnAOHJuVqk" role="button" tabindex="0" aria-label="Video afspelen: Instruction film: securing a wheelchair in the vehicle">
+  <img src="https://i.ytimg.com/vi/FZnAOHJuVqk/hqdefault.jpg" alt="Instruction film: securing a wheelchair in the vehicle" loading="lazy">
+  <span class="play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+</div></div>
+    <a href="tel:+31628761078" class="num">06 2876 1078</a>
   </div>
 </section>
 

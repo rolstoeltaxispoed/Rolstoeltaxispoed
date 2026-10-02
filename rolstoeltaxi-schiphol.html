@@ -773,6 +773,13 @@ body.cc-open .cta-dock{display:none!important}
   .cookie-banner .cb-actions .btn{width:100%;justify-content:center}
 }
 
+/* ---------- consistentie: alle belknoppen en hero-knoppen gelijk aan de homepage ---------- */
+a.btn[href^="tel:"]{display:inline-flex;align-items:center;justify-content:center;gap:9px}
+a.btn[href^="tel:"]::before{margin-right:0;vertical-align:baseline}
+.page-hero .hero-cta-main,.page-hero.has-photo .hero-box .hero-cta-main{flex-wrap:nowrap;align-items:stretch;gap:14px;margin-bottom:22px}
+.page-hero .hero-cta-main .btn{flex:1}
+@media(max-width:420px){.page-hero .hero-cta-main{flex-direction:column}}
+
 </style>
 </head>
 <body>
@@ -822,9 +829,9 @@ body.cc-open .cta-dock{display:none!important}
       <span class="eyebrow">Rolstoeltaxi · Schiphol</span>
       <h1>Rolstoeltaxi Schiphol <span class="serif-i">met spoedservice</span></h1>
       <div class="proof"><span><b>24/7</b> bereikbaar</span><span><b>10+</b> jaar ervaring</span><span><b>5000+</b> ritten</span></div>
-      <div class="hero-cta">
-        <a href="tel:+31628761078" class="btn btn-yellow" data-cta="primary">Bel direct: 06 2876 1078</a>
-        <a href="/contact" class="btn btn-ghost">Of plan online</a>
+      <div class="hero-cta hero-cta-main">
+        <a href="tel:+31628761078" class="btn btn-yellow" data-cta="primary">Bel direct</a>
+        <a href="/contact" class="btn btn-ghost">Plan nu</a>
       </div>
       <p class="lead">Vliegen met een rolstoel begint met een betrouwbare rit naar de luchthaven. Rolstoeltaxi Spoed brengt u en uw bagage naar Schiphol en haalt u er weer op, ook bij vertraging en op vroege of late uren.</p>
     </div>
@@ -848,6 +855,23 @@ body.cc-open .cta-dock{display:none!important}
         <img src="/img/luchthavenvervoer-bagage.jpg" alt="Rolstoelbus met laadklep, reizigers met bagage bij een terminal" width="1000" height="750" loading="lazy" style="object-position:center">
       </figure>
     </div>
+  </div>
+</section>
+
+<!-- MARQUEE + CALL BANNER -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Spoedvervoer</span><span>Ziekenhuisvervoer</span><span>Rolstoelvervoer</span><span>Luchthavenvervoer</span><span>Scootmobiel vervoer</span><span>Bel direct</span><span>24/7 bereikbaar</span><span>Spoedvervoer</span><span>Ziekenhuisvervoer</span><span>Rolstoelvervoer</span><span>Luchthavenvervoer</span><span>Scootmobiel vervoer</span><span>Bel direct</span><span>24/7 bereikbaar</span>
+  </div>
+</div>
+<section class="call-banner">
+  <div class="wrap">
+    <span class="lbl"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3h3l2 5-2.5 1.5a11 11 0 005 5L14 12l5 2v3a2 2 0 01-2.2 2A17 17 0 013 5.2 2 2 0 015 3z"/></svg> Bel nu, direct een chauffeur inplannen:</span>
+    <div class="call-banner-video"><div class="video-embed" data-video-id="FZnAOHJuVqk" role="button" tabindex="0" aria-label="Video afspelen: Instructiefilm: rolstoel vastzetten in de rolstoelbus">
+  <img src="https://i.ytimg.com/vi/FZnAOHJuVqk/hqdefault.jpg" alt="Instructiefilm: rolstoel vastzetten in de rolstoelbus" loading="lazy">
+  <span class="play-btn" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+</div></div>
+    <a href="tel:+31628761078" class="num">06 2876 1078</a>
   </div>
 </section>
 
