@@ -74,7 +74,7 @@ module.exports = [
     region: 'Rest van Nederland',
     distant: true,
     nearby: ['arnhem', 'eindhoven', 'utrecht', 'maastricht', 'amsterdam'],
-    photo: { src: 'rolstoelbus-zijkant.jpg', alt: 'Rolstoelbus, zijaanzicht, geparkeerd', pos: 'center' },
+    photo: { src: 'rolstoelbus-amsterdam-gracht-diagonaal.jpg', alt: 'Rolstoelbus met uitgeklapte laadklep, diagonaal van achteren', pos: 'center' },
     metaDescription: 'Rolstoeltaxi Nijmegen: rolstoelvervoer van en naar Nijmegen, naar de Waalkade, de universiteit en de zorg. Laadklep, 24/7 spoedservice. Bel direct.',
     lead: 'Nijmegen is de oudste stad van Nederland, aan de Waal, met het Valkhof en de Vierdaagse. Voor een lange rit met een rolstoel rijdt u rechtstreeks.',
     intro: [

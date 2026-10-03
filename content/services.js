@@ -189,7 +189,7 @@ module.exports = [
     ],
     images: [
       { src: 'scootmobiel-laadklep.jpg', alt: 'Scootmobiel op de elektrische laadklep van de rolstoelbus' },
-      { src: 'rolstoelbus-zijkant.jpg', alt: 'Rolstoelbus, zijaanzicht' },
+      { src: 'rolstoelbus-amsterdam-gracht-diagonaal.jpg', alt: 'Rolstoelbus met uitgeklapte laadklep, diagonaal van achteren' },
     ],
     faqs: [
       { q: 'Kan ik een vaste wekelijkse rit afspreken?', a: 'Ja, dat plannen we graag in als terugkerende afspraak, zodat u er niet iedere keer opnieuw voor hoeft te bellen.' },

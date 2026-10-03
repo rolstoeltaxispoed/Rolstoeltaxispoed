@@ -741,7 +741,7 @@ function buildCityBody(c, locale = 'nl') {
   const eyebrow = c.isService ? `${en ? 'Hospital transport' : 'Ziekenhuisvervoer'} · Amsterdam` : `${en ? 'Wheelchair taxi' : 'Rolstoeltaxi'} · ${name}`;
   const nearby = c.nearby.map(cityBySlug).filter(Boolean);
   const photoClass = c.portrait ? 'portrait' : 'landscape';
-  const photo2 = c.photo2 || (c.region === 'Amsterdam en omgeving' ? { src: 'spoedrit-amsterdam-centraal.jpg', alt: 'Rolstoelbus met uitgeklapte laadklep in de stad', altEn: 'Wheelchair-accessible vehicle with the ramp deployed in the city' } : { src: 'rolstoelbus-zijkant.jpg', alt: 'Rolstoelbus, zijaanzicht, met ruime zijruiten', altEn: 'Wheelchair-accessible vehicle, side view, with large windows' });
+  const photo2 = c.photo2 || (c.region === 'Amsterdam en omgeving' ? { src: 'spoedrit-amsterdam-centraal.jpg', alt: 'Rolstoelbus met uitgeklapte laadklep in de stad', altEn: 'Wheelchair-accessible vehicle with the ramp deployed in the city' } : { src: 'rolstoelbus-amsterdam-gracht-diagonaal.jpg', alt: 'Rolstoelbus met uitgeklapte laadklep, diagonaal van achteren', altEn: 'Wheelchair-accessible vehicle with the ramp deployed, photographed diagonally from behind' });
   return `<!-- PAGE HERO -->
 <header class="page-hero has-photo" style="background-image:url('/img/${c.photo.src}');background-position:${c.photo.pos || 'center'}">
   <div class="wrap">
@@ -1728,7 +1728,7 @@ function buildOverOnsBody(locale = 'nl') {
   <div class="wrap">
     <div class="about-grid">
       <div class="about-photo reveal" style="background:none;padding:0">
-        <img src="/img/rolstoelbus-zijkant.jpg" alt="${en ? `${SITE.name} wheelchair-accessible vehicle, side view` : 'Rolstoelbus van Rolstoeltaxi Spoed, zijaanzicht'}" width="1600" height="1200" loading="lazy" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">
+        <img src="/img/rolstoelbus-amsterdam-gracht-diagonaal.jpg" alt="${en ? `${SITE.name} wheelchair-accessible vehicle, ramp deployed, photographed diagonally from behind` : 'Rolstoelbus van Rolstoeltaxi Spoed, met uitgeklapte laadklep, diagonaal van achteren gefotografeerd'}" width="1600" height="1200" loading="lazy" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">
       </div>
       <div class="about-copy">
         <span class="eyebrow reveal">${en ? 'The story' : 'Het verhaal'}</span>

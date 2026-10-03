@@ -278,7 +278,7 @@ module.exports = [
     name: 'Aalsmeer',
     region: 'Amsterdam en omgeving',
     nearby: ['uithoorn', 'hoofddorp', 'amstelveen', 'schiphol', 'leiden'],
-    photo: { src: 'rolstoelbus-zijkant.jpg', alt: 'Rolstoelbus, zijaanzicht, geparkeerd bij een gebouw', pos: 'center' },
+    photo: { src: 'rolstoelbus-amsterdam-gracht-diagonaal.jpg', alt: 'Rolstoelbus met uitgeklapte laadklep, diagonaal van achteren', pos: 'center' },
     metaDescription: 'Rolstoeltaxi Aalsmeer: rolstoelvervoer in de bloemenstad, van en naar Schiphol, Amstelveen en Amsterdam. Elektrische laadklep, 24/7 spoedservice. Bel direct.',
     lead: 'Aalsmeer is bekend van de bloemen en de Westeinderplassen. Voor rolstoelgebruikers is het vooral een dorp waar vervoer naar de regio lastig te regelen kan zijn.',
     intro: [
