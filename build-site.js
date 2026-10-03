@@ -10,8 +10,8 @@ const SITE = {
   phoneDisplay: '06 2876 1078',
   phoneTel: '+31628761078',
   whatsapp: '31628761078',
-  web3formsKey: '', // vul hier de Web3Forms access key in om e-mail te koppelen
-  email: 'info@rolstoeltaxispoed.nl',
+  web3formsKey: '72a0915e-de80-462c-a4b6-33ad67a04e7b', // Web3Forms (publieke key), aanvragen komen binnen op rolstoeltaxispoed@gmail.com
+  email: 'rolstoeltaxispoed@gmail.com',
   gtmId: 'GTM-PJ92NFWQ', // Google Tag Manager (regelt GA4 + Google Ads conversietracking)
 };
 
