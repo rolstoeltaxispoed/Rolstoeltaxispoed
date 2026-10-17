@@ -749,6 +749,14 @@ a.btn[href^="tel:"]::before{margin-right:0;vertical-align:baseline}
 .page-hero .hero-cta-main .btn{flex:1}
 @media(max-width:420px){.page-hero .hero-cta-main{flex-direction:column}}
 
+/* ---------- annuleren: voorwaarden-melding ---------- */
+.cancel-policy{margin:4px 0 16px;padding:13px 15px;border:1px solid var(--line);border-left:4px solid var(--yellow);border-radius:10px;background:var(--bg-2);font-size:14.5px;line-height:1.5;color:var(--ink-dim)}
+.cancel-policy b{color:var(--ink)}
+.cancel-policy a,.aside-policy a{color:var(--accent);font-weight:600}
+.aside-policy{border-left:4px solid var(--yellow)}
+.aside-policy .aside-alt b{color:var(--ink)}
+@media(max-width:600px){.cancel-policy{font-size:14px;padding:12px 13px}.aside-policy{padding:22px 20px}}
+
 </style>
 </head>
 <body>
@@ -855,6 +863,8 @@ a.btn[href^="tel:"]::before{margin-right:0;vertical-align:baseline}
 
           <label class="check consent"><input type="checkbox" id="akkoord" required><span>Ik ga akkoord met de <a href="/privacyverklaring" target="_blank" rel="noopener">privacyverklaring</a>. Mijn gegevens worden alleen gebruikt om deze annulering te verwerken.</span></label>
 
+          <p class="cancel-policy"><b>Gratis annuleren tot 24 uur vóór de rit.</b> Daarna rekenen wij 50% van de ritprijs. <a href="/algemene-voorwaarden#annuleren">Zie de algemene voorwaarden</a>.</p>
+
           <button type="submit" class="btn btn-yellow btn-full" id="submitBtn">Rit annuleren</button>
           <p class="form-note">Is de rit al heel binnenkort? Bel dan liever direct, dan weten we het zeker: <a href="tel:+31628761078">06 2876 1078</a>.</p>
           <p class="form-error" id="formError" role="alert" hidden></p>
@@ -878,6 +888,9 @@ a.btn[href^="tel:"]::before{margin-right:0;vertical-align:baseline}
         </div>
         <div class="aside-card reveal reveal-d3">
           <p class="aside-alt">Wilt u een andere rit plannen?<br><a href="/contact">Reserveer een rit</a></p>
+        </div>
+        <div class="aside-card aside-policy reveal reveal-d3">
+          <p class="aside-alt"><b>Annuleringsvoorwaarden</b><br>Gratis annuleren tot 24 uur vóór de rit. Annuleert u binnen 24 uur, dan betaalt u 50% van de ritprijs.<br><a href="/algemene-voorwaarden#annuleren">Lees de algemene voorwaarden</a></p>
         </div>
       </aside>
 
@@ -990,6 +1003,7 @@ a.btn[href^="tel:"]::before{margin-right:0;vertical-align:baseline}
           <li><a href="/tarieven">Tarieven</a></li>
           <li><a href="/rit-annuleren">Rit annuleren</a></li>
           <li><a href="/veelgestelde-vragen">Veelgestelde vragen</a></li>
+          <li><a href="/algemene-voorwaarden">Algemene voorwaarden</a></li>
           <li><a href="/privacyverklaring">Privacyverklaring</a></li>
         </ul>
       </div>

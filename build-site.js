@@ -227,12 +227,12 @@ function footer(prefix, locale = 'nl') {
     tagline: `The emergency branch of ${SITE.parentBrand}: wheelchair transport in the Netherlands, reachable 24 hours a day for rides that can't wait.`,
     diensten: 'Services', locaties: 'Locations', alleLocaties: 'All locations', contact: 'Contact',
     onderdeelVan: `Part of ${SITE.parentBrand}`, overOns: 'About us', reserveren: 'Book now', annuleren: 'Cancel ride', tarieven: 'Rates',
-    faq: 'FAQ', privacy: 'Privacy policy',
+    faq: 'FAQ', privacy: 'Privacy policy', voorwaarden: 'Terms and conditions',
   } : {
     tagline: `De spoedtak van ${SITE.parentBrand}: rolstoelvervoer in Nederland, 24 uur per dag bereikbaar voor ritten die niet kunnen wachten.`,
     diensten: 'Diensten', locaties: 'Locaties', alleLocaties: 'Alle locaties', contact: 'Contact',
     onderdeelVan: `Onderdeel van ${SITE.parentBrand}`, overOns: 'Over ons', reserveren: 'Direct reserveren', annuleren: 'Rit annuleren', tarieven: 'Tarieven',
-    faq: 'Veelgestelde vragen', privacy: 'Privacyverklaring',
+    faq: 'Veelgestelde vragen', privacy: 'Privacyverklaring', voorwaarden: 'Algemene voorwaarden',
   };
   return `<footer>
   <div class="wrap">
@@ -265,6 +265,7 @@ function footer(prefix, locale = 'nl') {
           <li><a href="${base}/tarieven">${t.tarieven}</a></li>
           <li><a href="${base}/rit-annuleren">${t.annuleren}</a></li>
           <li><a href="${base}/veelgestelde-vragen">${t.faq}</a></li>
+          <li><a href="${base}/algemene-voorwaarden">${t.voorwaarden}</a></li>
           <li><a href="${base}/privacyverklaring">${t.privacy}</a></li>
         </ul>
       </div>
@@ -1781,6 +1782,8 @@ function buildAnnulerenBody(locale = 'nl') {
 
           <label class="check consent"><input type="checkbox" id="akkoord" required><span>${en ? 'I agree to the' : 'Ik ga akkoord met de'} <a href="${base}/privacyverklaring" target="_blank" rel="noopener">${en ? 'privacy policy' : 'privacyverklaring'}</a>. ${en ? 'My details are only used to process this cancellation.' : 'Mijn gegevens worden alleen gebruikt om deze annulering te verwerken.'}</span></label>
 
+          <p class="cancel-policy"><b>${en ? 'Free cancellation up to 24 hours before the ride.' : 'Gratis annuleren tot 24 uur vóór de rit.'}</b> ${en ? 'After that we charge 50% of the ride price.' : 'Daarna rekenen wij 50% van de ritprijs.'} <a href="${base}/algemene-voorwaarden#annuleren">${en ? 'See the terms and conditions' : 'Zie de algemene voorwaarden'}</a>.</p>
+
           <button type="submit" class="btn btn-yellow btn-full" id="submitBtn">${en ? 'Cancel ride' : 'Rit annuleren'}</button>
           <p class="form-note">${en ? 'Is the ride very soon? Please call directly so we are sure to know:' : 'Is de rit al heel binnenkort? Bel dan liever direct, dan weten we het zeker:'} <a href="tel:${SITE.phoneTel}">${SITE.phoneDisplay}</a>.</p>
           <p class="form-error" id="formError" role="alert" hidden></p>
@@ -1804,6 +1807,9 @@ function buildAnnulerenBody(locale = 'nl') {
         </div>
         <div class="aside-card reveal reveal-d3">
           <p class="aside-alt">${en ? 'Want to plan a different ride?' : 'Wilt u een andere rit plannen?'}<br><a href="${base}/contact">${en ? 'Book a ride' : 'Reserveer een rit'}</a></p>
+        </div>
+        <div class="aside-card aside-policy reveal reveal-d3">
+          <p class="aside-alt"><b>${en ? 'Cancellation terms' : 'Annuleringsvoorwaarden'}</b><br>${en ? 'Free cancellation up to 24 hours before the ride. Cancelling within 24 hours: 50% of the ride price is charged.' : 'Gratis annuleren tot 24 uur vóór de rit. Annuleert u binnen 24 uur, dan betaalt u 50% van de ritprijs.'}<br><a href="${base}/algemene-voorwaarden#annuleren">${en ? 'Read the terms and conditions' : 'Lees de algemene voorwaarden'}</a></p>
         </div>
       </aside>
 
@@ -2197,6 +2203,103 @@ function buildPrivacyBody(locale = 'nl') {
 </section>`;
 }
 
+/* ============================== ALGEMENE VOORWAARDEN PAGE ============================== */
+
+function buildVoorwaardenBody(locale = 'nl') {
+  const en = locale === 'en';
+  const base = en ? '/en' : '';
+  const contactLine = `${SITE.phoneDisplay} · <a href="mailto:${SITE.email}" style="color:var(--accent)">${SITE.email}</a>`;
+  return `<!-- PAGE HERO -->
+<header class="page-hero" style="padding-bottom:20px">
+  <div class="wrap">
+    ${breadcrumbNav([{ label: 'Home', href: `${base}/` }, { label: en ? 'Terms and conditions' : 'Algemene voorwaarden' }])}
+    <span class="eyebrow reveal">${en ? 'Legal' : 'Juridisch'}</span>
+    <h1 class="reveal reveal-d1">${en ? 'Terms and' : 'Algemene'} <span class="serif-i">${en ? 'conditions' : 'voorwaarden'}</span></h1>
+    <p class="lead reveal reveal-d2">${en ? `Last updated: 2026. These terms apply to all rides and agreements with ${SITE.name}, part of ${SITE.parentBrand}.` : `Laatst bijgewerkt: 2026. Deze voorwaarden gelden voor alle ritten en overeenkomsten met ${SITE.name}, onderdeel van ${SITE.parentBrand}.`}</p>
+  </div>
+</header>
+
+<section style="padding-top:20px">
+  <div class="wrap prose reveal">
+    ${en ? `<h2>1. Services</h2>
+    <p>${SITE.name} provides door-to-door wheelchair transport, including transport with a loan wheelchair and airport transport. Our goal is safe, comfortable and punctual rides.</p>
+
+    <h2>2. Bookings</h2>
+    <p>You can book by phone, by email or via the website. A booking is final once ${SITE.name} has confirmed it. Please provide the correct pickup address, destination, date, time and any special requirements, so we can plan the ride properly.</p>
+
+    <h2 id="annuleren">3. Cancellation</h2>
+    <ul>
+      <li>You can cancel by phone (${SITE.phoneDisplay}), via the <a href="${base}/rit-annuleren" style="color:var(--accent)">cancellation form</a> on this website, or by email. Please cancel as early as possible.</li>
+      <li><b>Cancelling more than 24 hours before the agreed pickup time is free of charge.</b></li>
+      <li><b>If you cancel within 24 hours before the agreed pickup time, we charge 50% of the price of the cancelled ride.</b></li>
+      <li>The time of cancellation is the moment we receive your notification.</li>
+      <li>If the driver is already at the pickup address and the passenger does not show up (no-show), we may charge the full price of the ride.</li>
+    </ul>
+
+    <h2>4. Waiting time</h2>
+    <p>A reasonable waiting time applies at the pickup address. If the waiting time is exceeded significantly, additional charges may apply.</p>
+
+    <h2>5. Payment</h2>
+    <p>You can pay in cash, by invoice or by another method agreed in advance. Invoices must be paid within the stated term, unless agreed otherwise.</p>
+
+    <h2>6. Liability</h2>
+    <p>${SITE.name} is insured as required by law. We are not liable for delays caused by force majeure, such as traffic, weather or unforeseen events. The customer may be held liable for damage caused by intent or negligence.</p>
+
+    <h2>7. Safety</h2>
+    <p>The driver secures the wheelchair in the vehicle. The customer and passengers must follow the safety instructions of the driver.</p>
+
+    <h2>8. Force majeure</h2>
+    <p>${SITE.name} is not liable for damage or non-performance if fulfilling its obligations has become temporarily or permanently impossible due to circumstances beyond its control.</p>
+
+    <h2>9. Complaints</h2>
+    <p>Complaints must be submitted in writing or by email to <a href="mailto:${SITE.email}" style="color:var(--accent)">${SITE.email}</a> within a reasonable time after the ride.</p>
+
+    <h2>10. Applicable law</h2>
+    <p>Dutch law applies to all agreements with ${SITE.name}.</p>
+
+    <h2>Contact</h2>
+    <p>${SITE.name}, part of ${SITE.parentBrand}<br>Sumatrastraat 234, 1095 HT Amsterdam<br>${contactLine}</p>` : `<h2>1. Diensten</h2>
+    <p>${SITE.name} verzorgt rolstoelvervoer van deur tot deur, waaronder vervoer met een leenrolstoel en luchthavenvervoer. Ons doel is veilig, comfortabel en punctueel vervoer.</p>
+
+    <h2>2. Reserveren</h2>
+    <p>U kunt reserveren per telefoon, per e-mail of via de website. Een reservering is definitief zodra ${SITE.name} deze heeft bevestigd. Geef het juiste ophaaladres, de bestemming, datum, tijd en eventuele bijzonderheden door, zodat wij de rit goed kunnen plannen.</p>
+
+    <h2 id="annuleren">3. Annuleren</h2>
+    <ul>
+      <li>U kunt annuleren per telefoon (${SITE.phoneDisplay}), via het <a href="${base}/rit-annuleren" style="color:var(--accent)">annuleerformulier</a> op deze website of per e-mail. Annuleer zo vroeg mogelijk.</li>
+      <li><b>Annuleren meer dan 24 uur vóór de afgesproken ophaaltijd is kosteloos.</b></li>
+      <li><b>Annuleert u binnen 24 uur vóór de afgesproken ophaaltijd, dan brengen wij 50% van de prijs van de geannuleerde rit in rekening.</b></li>
+      <li>Als tijdstip van annulering geldt het moment waarop wij uw melding ontvangen.</li>
+      <li>Is de chauffeur al op het ophaaladres en komt de reiziger niet opdagen (no-show), dan kunnen wij de volledige prijs van de rit in rekening brengen.</li>
+    </ul>
+
+    <h2>4. Wachttijd</h2>
+    <p>Op het ophaaladres geldt een redelijke wachttijd. Wordt de wachttijd aanzienlijk overschreden, dan kunnen extra kosten in rekening worden gebracht.</p>
+
+    <h2>5. Betaling</h2>
+    <p>U kunt contant betalen, op factuur of op een andere vooraf afgesproken manier. Facturen moeten binnen de vermelde termijn worden betaald, tenzij anders is afgesproken.</p>
+
+    <h2>6. Aansprakelijkheid</h2>
+    <p>${SITE.name} is verzekerd zoals wettelijk vereist. Wij zijn niet aansprakelijk voor vertraging door overmacht, zoals verkeer, weer of onvoorziene gebeurtenissen. De klant kan aansprakelijk worden gesteld voor schade die is ontstaan door opzet of nalatigheid.</p>
+
+    <h2>7. Veiligheid</h2>
+    <p>De chauffeur zet de rolstoel vast in het voertuig. De klant en de passagiers moeten de veiligheidsinstructies van de chauffeur opvolgen.</p>
+
+    <h2>8. Overmacht</h2>
+    <p>${SITE.name} is niet aansprakelijk voor schade of het niet nakomen van verplichtingen als nakoming tijdelijk of blijvend onmogelijk is door omstandigheden buiten onze macht.</p>
+
+    <h2>9. Klachten</h2>
+    <p>Klachten moeten binnen een redelijke termijn na de rit schriftelijk of per e-mail worden ingediend via <a href="mailto:${SITE.email}" style="color:var(--accent)">${SITE.email}</a>.</p>
+
+    <h2>10. Toepasselijk recht</h2>
+    <p>Op alle overeenkomsten met ${SITE.name} is Nederlands recht van toepassing.</p>
+
+    <h2>Contact</h2>
+    <p>${SITE.name}, onderdeel van ${SITE.parentBrand}<br>Sumatrastraat 234, 1095 HT Amsterdam<br>${contactLine}</p>`}
+  </div>
+</section>`;
+}
+
 /* ============================== BEDANKT PAGE ============================== */
 
 function buildBedanktBody(locale = 'nl') {
@@ -2242,6 +2345,8 @@ const EN_TITLES = {
   tarievenDesc: 'How is the price of a ride with Rolstoeltaxi Spoed built up? Transparent and always named beforehand, even for emergencies. Call for a tailored price.',
   faq: 'Frequently asked questions | Rolstoeltaxi Spoed',
   faqDesc: 'Answers to the most common questions about emergency transport, rates, reimbursement and booking with Rolstoeltaxi Spoed. Not on the list? Feel free to call.',
+  voorwaarden: 'Terms and conditions | Rolstoeltaxi Spoed',
+  voorwaardenDesc: 'The terms and conditions of Rolstoeltaxi Spoed: bookings, cancellation (free up to 24 hours before the ride), payment, liability and complaints.',
   privacy: 'Privacy policy | Rolstoeltaxi Spoed',
   privacyDesc: 'Read how Rolstoeltaxi Spoed handles your personal data: what data we process, why, how long we keep it and what rights you have.',
   bedankt: 'Thank you for your request | Rolstoeltaxi Spoed',
@@ -2391,6 +2496,17 @@ function writeAllPages(locale) {
     locale,
   }));
 
+  fs.writeFileSync(path.join(root, 'algemene-voorwaarden.html'), page({
+    title: en ? EN_TITLES.voorwaarden : 'Algemene voorwaarden | Rolstoeltaxi Spoed',
+    description: en ? EN_TITLES.voorwaardenDesc : 'De algemene voorwaarden van Rolstoeltaxi Spoed: reserveren, annuleren (kosteloos tot 24 uur vooraf), betaling, aansprakelijkheid en klachten.',
+    canonicalPath: en ? 'en/algemene-voorwaarden' : 'algemene-voorwaarden',
+    prefix: '',
+    extraLd: '',
+    bodyHtml: buildVoorwaardenBody(locale),
+    skipFaq: true,
+    locale,
+  }));
+
   fs.writeFileSync(path.join(root, 'privacyverklaring.html'), page({
     title: en ? EN_TITLES.privacy : 'Privacyverklaring | Rolstoeltaxi Spoed',
     description: en ? EN_TITLES.privacyDesc : 'Lees hoe Rolstoeltaxi Spoed omgaat met uw persoonsgegevens: welke gegevens we verwerken, waarom, hoe lang we ze bewaren en welke rechten u heeft.',
@@ -2420,7 +2536,7 @@ writeAllPages('en');
 
 /* ============================== SITEMAP & ROBOTS ============================== */
 
-const staticPages = ['', 'diensten', 'locaties', 'over-ons', 'tarieven', 'rit-annuleren', 'contact', 'veelgestelde-vragen', 'privacyverklaring'];
+const staticPages = ['', 'diensten', 'locaties', 'over-ons', 'tarieven', 'rit-annuleren', 'contact', 'veelgestelde-vragen', 'algemene-voorwaarden', 'privacyverklaring'];
 const urls = [
   ...staticPages.map(p => `${SITE.domain}/${p}`),
   ...SERVICES.map(s => `${SITE.domain}/diensten/${s.slug}`),

@@ -749,6 +749,14 @@ a.btn[href^="tel:"]::before{margin-right:0;vertical-align:baseline}
 .page-hero .hero-cta-main .btn{flex:1}
 @media(max-width:420px){.page-hero .hero-cta-main{flex-direction:column}}
 
+/* ---------- annuleren: voorwaarden-melding ---------- */
+.cancel-policy{margin:4px 0 16px;padding:13px 15px;border:1px solid var(--line);border-left:4px solid var(--yellow);border-radius:10px;background:var(--bg-2);font-size:14.5px;line-height:1.5;color:var(--ink-dim)}
+.cancel-policy b{color:var(--ink)}
+.cancel-policy a,.aside-policy a{color:var(--accent);font-weight:600}
+.aside-policy{border-left:4px solid var(--yellow)}
+.aside-policy .aside-alt b{color:var(--ink)}
+@media(max-width:600px){.cancel-policy{font-size:14px;padding:12px 13px}.aside-policy{padding:22px 20px}}
+
 </style>
 </head>
 <body>
@@ -855,6 +863,8 @@ a.btn[href^="tel:"]::before{margin-right:0;vertical-align:baseline}
 
           <label class="check consent"><input type="checkbox" id="akkoord" required><span>I agree to the <a href="/en/privacyverklaring" target="_blank" rel="noopener">privacy policy</a>. My details are only used to process this cancellation.</span></label>
 
+          <p class="cancel-policy"><b>Free cancellation up to 24 hours before the ride.</b> After that we charge 50% of the ride price. <a href="/en/algemene-voorwaarden#annuleren">See the terms and conditions</a>.</p>
+
           <button type="submit" class="btn btn-yellow btn-full" id="submitBtn">Cancel ride</button>
           <p class="form-note">Is the ride very soon? Please call directly so we are sure to know: <a href="tel:+31628761078">06 2876 1078</a>.</p>
           <p class="form-error" id="formError" role="alert" hidden></p>
@@ -878,6 +888,9 @@ a.btn[href^="tel:"]::before{margin-right:0;vertical-align:baseline}
         </div>
         <div class="aside-card reveal reveal-d3">
           <p class="aside-alt">Want to plan a different ride?<br><a href="/en/contact">Book a ride</a></p>
+        </div>
+        <div class="aside-card aside-policy reveal reveal-d3">
+          <p class="aside-alt"><b>Cancellation terms</b><br>Free cancellation up to 24 hours before the ride. Cancelling within 24 hours: 50% of the ride price is charged.<br><a href="/en/algemene-voorwaarden#annuleren">Read the terms and conditions</a></p>
         </div>
       </aside>
 
@@ -990,6 +1003,7 @@ a.btn[href^="tel:"]::before{margin-right:0;vertical-align:baseline}
           <li><a href="/en/tarieven">Rates</a></li>
           <li><a href="/en/rit-annuleren">Cancel ride</a></li>
           <li><a href="/en/veelgestelde-vragen">FAQ</a></li>
+          <li><a href="/en/algemene-voorwaarden">Terms and conditions</a></li>
           <li><a href="/en/privacyverklaring">Privacy policy</a></li>
         </ul>
       </div>
