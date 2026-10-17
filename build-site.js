@@ -174,6 +174,8 @@ function nav(prefix, locale = 'nl', altHref = '/') {
     tarieven: en ? 'Rates' : 'Tarieven',
     overOns: en ? 'About us' : 'Over ons',
     belDirect: en ? 'Call now' : 'Bel direct',
+    reserveerNu: en ? 'Book now' : 'Reserveer nu',
+    annuleren: en ? 'Cancel ride' : 'Rit annuleren',
     contact: en ? 'Contact' : 'Contact',
     menuOpen: en ? 'Open menu' : 'Menu openen',
     menuClose: en ? 'Close menu' : 'Menu sluiten',
@@ -191,8 +193,9 @@ function nav(prefix, locale = 'nl', altHref = '/') {
       <li><a href="${base}/diensten/spoedvervoer-rolstoeltaxi" class="nav-spoed"><span class="nav-spoed-dot"></span>${t.spoedNu}</a></li>
       <li><a href="${base}/tarieven">${t.tarieven}</a></li>
       <li><a href="${base}/over-ons">${t.overOns}</a></li>
+      <li><a href="${base}/rit-annuleren">${t.annuleren}</a></li>
       <li><a href="${altHref}" class="lang-switch" aria-label="${t.langLabel}">${ICONS.globe}${t.langShort}</a></li>
-      <li><a href="tel:${SITE.phoneTel}" class="btn btn-nav">${t.belDirect}</a></li>
+      <li><a href="${base}/contact" class="btn btn-nav">${t.reserveerNu}</a></li>
     </ul>
     <div class="nav-mobile-actions">
       <a href="${altHref}" class="lang-switch lang-switch-mobile" aria-label="${t.langLabel}">${ICONS.globe}${t.langShort}</a>
@@ -208,9 +211,10 @@ function nav(prefix, locale = 'nl', altHref = '/') {
   <a href="${base}/diensten/spoedvervoer-rolstoeltaxi" class="nav-spoed"><span class="nav-spoed-dot"></span>${t.spoedNu}</a>
   <a href="${base}/tarieven">${t.tarieven}</a>
   <a href="${base}/over-ons">${t.overOns}</a>
+  <a href="${base}/rit-annuleren">${t.annuleren}</a>
   <a href="${base}/contact">${t.contact}</a>
   <a href="${altHref}" class="lang-switch"><span aria-hidden="true">${ICONS.globe}</span>${t.langLabel}</a>
-  <a href="tel:${SITE.phoneTel}" class="btn">${t.belDirect}</a>
+  <a href="${base}/contact" class="btn">${t.reserveerNu}</a>
 </div>`;
 }
 
@@ -222,12 +226,12 @@ function footer(prefix, locale = 'nl') {
   const t = en ? {
     tagline: `The emergency branch of ${SITE.parentBrand}: wheelchair transport in the Netherlands, reachable 24 hours a day for rides that can't wait.`,
     diensten: 'Services', locaties: 'Locations', alleLocaties: 'All locations', contact: 'Contact',
-    onderdeelVan: `Part of ${SITE.parentBrand}`, overOns: 'About us', reserveren: 'Book now', tarieven: 'Rates',
+    onderdeelVan: `Part of ${SITE.parentBrand}`, overOns: 'About us', reserveren: 'Book now', annuleren: 'Cancel ride', tarieven: 'Rates',
     faq: 'FAQ', privacy: 'Privacy policy',
   } : {
     tagline: `De spoedtak van ${SITE.parentBrand}: rolstoelvervoer in Nederland, 24 uur per dag bereikbaar voor ritten die niet kunnen wachten.`,
     diensten: 'Diensten', locaties: 'Locaties', alleLocaties: 'Alle locaties', contact: 'Contact',
-    onderdeelVan: `Onderdeel van ${SITE.parentBrand}`, overOns: 'Over ons', reserveren: 'Direct reserveren', tarieven: 'Tarieven',
+    onderdeelVan: `Onderdeel van ${SITE.parentBrand}`, overOns: 'Over ons', reserveren: 'Direct reserveren', annuleren: 'Rit annuleren', tarieven: 'Tarieven',
     faq: 'Veelgestelde vragen', privacy: 'Privacyverklaring',
   };
   return `<footer>
@@ -259,6 +263,7 @@ function footer(prefix, locale = 'nl') {
           <li style="margin-top:10px"><a href="${base}/over-ons">${t.overOns}</a></li>
           <li><a href="${base}/contact">${t.reserveren}</a></li>
           <li><a href="${base}/tarieven">${t.tarieven}</a></li>
+          <li><a href="${base}/rit-annuleren">${t.annuleren}</a></li>
           <li><a href="${base}/veelgestelde-vragen">${t.faq}</a></li>
           <li><a href="${base}/privacyverklaring">${t.privacy}</a></li>
         </ul>
@@ -441,7 +446,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
 
 function page({ title, description, canonicalPath, prefix, extraLd, bodyHtml, skipSticky, skipFaq, stickyLabel, useScrollThreshold, locale = 'nl' }) {
   const altHref = '/' + altPathFor(canonicalPath, locale);
-  const isContact = canonicalPath === 'contact' || canonicalPath === 'en/contact';
+  const isContact = ['contact', 'en/contact', 'rit-annuleren', 'en/rit-annuleren'].includes(canonicalPath);
   return `<!DOCTYPE html>
 <html lang="${locale === 'en' ? 'en' : 'nl'}">
 ${head({ title, description, canonicalPath, prefix, extraLd, locale })}
@@ -508,8 +513,8 @@ function buildServiceBody(svc, locale = 'nl') {
       <h1>${d.h1}</h1>
       <p class="lead">${d.lead}</p>
       <div class="hero-cta hero-cta-main">
-        <a href="tel:${SITE.phoneTel}" class="btn btn-yellow">${en ? 'Call now' : 'Bel direct'}</a>
-        <a href="${base}/contact" class="btn btn-ghost">${en ? 'Book now' : 'Plan nu'}</a>
+        <a href="${base}/contact" class="btn btn-yellow">${en ? 'Book now' : 'Reserveer nu'}</a>
+        <a href="tel:${SITE.phoneTel}" class="btn btn-ghost">${en ? 'Call now' : 'Bel direct'}</a>
       </div>
     </div>
   </div>
@@ -751,8 +756,8 @@ function buildCityBody(c, locale = 'nl') {
       <h1>${h1}</h1>
       <div class="proof"><span><b>24/7</b> ${en ? 'available' : 'bereikbaar'}</span><span><b>10+</b> ${en ? 'years experience' : 'jaar ervaring'}</span><span><b>5000+</b> ${en ? 'rides' : 'ritten'}</span></div>
       <div class="hero-cta hero-cta-main">
-        <a href="tel:${SITE.phoneTel}" class="btn btn-yellow" data-cta="primary">${en ? 'Call now' : 'Bel direct'}</a>
-        <a href="${base}/contact" class="btn btn-ghost">${en ? 'Book now' : 'Plan nu'}</a>
+        <a href="${base}/contact" class="btn btn-yellow">${en ? 'Book now' : 'Reserveer nu'}</a>
+        <a href="tel:${SITE.phoneTel}" class="btn btn-ghost" data-cta="primary">${en ? 'Call now' : 'Bel direct'}</a>
       </div>
       <p class="lead">${d.lead}</p>
     </div>
@@ -926,8 +931,8 @@ function buildDienstenHub(locale = 'nl') {
       <h1>${en ? 'All services from' : 'Alle diensten van'} <span class="serif-i">${SITE.name}</span></h1>
       <div class="proof"><span><b>24/7</b> ${en ? 'available' : 'bereikbaar'}</span><span><b>10+</b> ${en ? 'years experience' : 'jaar ervaring'}</span><span><b>${SERVICES.length}</b> ${en ? 'services' : 'diensten'}</span></div>
       <div class="hero-cta hero-cta-main">
-        <a href="tel:${SITE.phoneTel}" class="btn btn-yellow" data-cta="primary">${en ? 'Call now' : 'Bel direct'}</a>
-        <a href="${base}/contact" class="btn btn-ghost">${en ? 'Book now' : 'Plan nu'}</a>
+        <a href="${base}/contact" class="btn btn-yellow">${en ? 'Book now' : 'Reserveer nu'}</a>
+        <a href="tel:${SITE.phoneTel}" class="btn btn-ghost" data-cta="primary">${en ? 'Call now' : 'Bel direct'}</a>
       </div>
       <p class="lead">${en ? 'From emergency transport to funeral transport: one phone number, the same vehicles and the same drivers for every ride.' : 'Van spoedvervoer tot uitvaartvervoer: één telefoonnummer, dezelfde bussen en dezelfde chauffeurs voor elke rit.'}</p>
     </div>
@@ -996,8 +1001,8 @@ function buildLocatiesHub(locale = 'nl') {
       <h1>${en ? 'Wheelchair taxi in' : 'Rolstoeltaxi in'} <span class="serif-i">${CITIES.length} ${en ? 'locations' : 'locaties'}</span></h1>
       <div class="proof"><span><b>24/7</b> ${en ? 'available' : 'bereikbaar'}</span><span><b>10+</b> ${en ? 'years experience' : 'jaar ervaring'}</span><span><b>5000+</b> ${en ? 'rides' : 'ritten'}</span></div>
       <div class="hero-cta hero-cta-main">
-        <a href="tel:${SITE.phoneTel}" class="btn btn-yellow" data-cta="primary">${en ? 'Call now' : 'Bel direct'}</a>
-        <a href="${base}/contact" class="btn btn-ghost">${en ? 'Book now' : 'Plan nu'}</a>
+        <a href="${base}/contact" class="btn btn-yellow">${en ? 'Book now' : 'Reserveer nu'}</a>
+        <a href="tel:${SITE.phoneTel}" class="btn btn-ghost" data-cta="primary">${en ? 'Call now' : 'Bel direct'}</a>
       </div>
       <p class="lead">${en ? "Choose your town and see where we pick you up, which rides we drive most often and how to arrange an emergency ride. Not on the list? Call us, we're happy to discuss the options." : 'Kies uw plaats en zie waar we u ophalen, welke ritten we vaak rijden en hoe u spoed regelt. Staat uw plaats er niet bij? Bel gerust, we bespreken de mogelijkheden.'}</p>
     </div>
@@ -1085,8 +1090,8 @@ function buildHomeBody(locale = 'nl') {
       <h1 class="reveal-d1" style="margin-top:16px">${en ? 'Emergency wheelchair transport?' : 'Spoed rolstoelvervoer?'} <span class="serif-i">${en ? 'We come now.' : 'Wij komen nu.'}</span></h1>
       <p class="lead reveal-d2">${en ? "One phone call and a wheelchair-accessible vehicle is ready for you. Fast, safe and calm, throughout the Netherlands." : 'Eén telefoontje en er staat een rolstoelbus voor u klaar. Snel, veilig en rustig, in Nederland.'}</p>
       <div class="hero-cta-main reveal-d2">
-        <a href="tel:${SITE.phoneTel}" class="btn btn-yellow">${ICONS.phoneCall}${en ? 'Call now' : 'Bel direct'}</a>
-        <a href="${base}/contact" class="btn btn-ghost">${en ? 'Book now' : 'Plan nu'}</a>
+        <a href="${base}/contact" class="btn btn-yellow">${en ? 'Book now' : 'Reserveer nu'}</a>
+        <a href="tel:${SITE.phoneTel}" class="btn btn-ghost">${ICONS.phoneCall}${en ? 'Call now' : 'Bel direct'}</a>
       </div>
       <div class="trust reveal-d3">
         <span class="trust-item">${svgCheck()}<b>24/7</b> ${en ? 'available' : 'bereikbaar'}</span>
@@ -1707,6 +1712,162 @@ function buildContactBody(locale = 'nl') {
 </script>`;
 }
 
+/* ============================== RIT ANNULEREN PAGE ============================== */
+
+function buildAnnulerenBody(locale = 'nl') {
+  const en = locale === 'en';
+  const base = en ? '/en' : '';
+  return `<!-- PAGE HERO -->
+<header class="page-hero" style="padding-bottom:40px">
+  <div class="wrap">
+    ${breadcrumbNav([{ label: 'Home', href: `${base}/` }, { label: en ? 'Cancel ride' : 'Rit annuleren' }])}
+    <span class="eyebrow reveal">${en ? 'Change of plans' : 'Verandering van plannen'}</span>
+    <h1 class="reveal reveal-d1">${en ? 'Cancel your' : 'Uw rit'} <span class="serif-i">${en ? 'ride' : 'annuleren'}</span></h1>
+    <p class="lead reveal reveal-d2">${en ? "Can't make your ride after all? Let us know as soon as possible, so we can inform the driver and plan accordingly. Fill in the form below or call us." : 'Kunt u toch niet meer mee? Laat het ons zo snel mogelijk weten, dan kunnen wij de chauffeur informeren en er rekening mee houden. Vul hieronder het formulier in of bel ons.'}</p>
+    <div class="hero-cta reveal reveal-d3">
+      <a href="tel:${SITE.phoneTel}" class="btn btn-yellow" data-cta="cancel">${en ? 'Ride soon? Call' : 'Rit binnenkort? Bel'} ${SITE.phoneDisplay}</a>
+    </div>
+  </div>
+</header>
+
+<!-- ANNULEREN -->
+<section class="booking" id="formulier">
+  <div class="wrap">
+    <div class="booking-grid">
+
+      <div class="form-card reveal">
+        <form id="cancelForm" novalidate>
+          <input type="checkbox" name="botcheck" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <fieldset class="fs">
+            <legend><span class="fs-n">1</span> ${en ? 'Your details' : 'Uw gegevens'}</legend>
+            <div class="form-row">
+              <div class="field">
+                <label for="naam">${en ? 'Name' : 'Naam'}</label>
+                <input type="text" id="naam" name="Naam" placeholder="${en ? 'First and last name' : 'Voor- en achternaam'}" required autocomplete="name">
+              </div>
+              <div class="field">
+                <label for="telefoon">${en ? 'Phone number' : 'Telefoonnummer'}</label>
+                <input type="tel" id="telefoon" name="Telefoon" placeholder="06 12345678" required autocomplete="tel" inputmode="tel">
+              </div>
+            </div>
+            <div class="field">
+              <label for="email">${en ? 'Email address' : 'E-mailadres'} <span class="opt">${en ? '(optional)' : '(optioneel)'}</span></label>
+              <input type="email" id="email" name="E-mail" placeholder="${en ? 'name@example.com' : 'naam@voorbeeld.nl'}" autocomplete="email">
+            </div>
+          </fieldset>
+
+          <fieldset class="fs">
+            <legend><span class="fs-n">2</span> ${en ? 'The ride to cancel' : 'De rit die u wilt annuleren'}</legend>
+            <div class="form-row">
+              <div class="field">
+                <label for="datum">${en ? 'Date of the ride' : 'Datum van de rit'}</label>
+                <input type="date" id="datum" name="Datum rit" required>
+              </div>
+              <div class="field">
+                <label for="tijd">${en ? 'Pickup time' : 'Ophaaltijd'}</label>
+                <input type="time" id="tijd" name="Ophaaltijd" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="ophaal">${en ? 'Pickup address' : 'Ophaaladres'}</label>
+              <input type="text" id="ophaal" name="Ophaaladres" placeholder="${en ? 'Street, number, city' : 'Straat, huisnummer, plaats'}" required autocomplete="street-address">
+            </div>
+            <div class="field">
+              <label for="bericht">${en ? 'Note' : 'Opmerking'} <span class="opt">${en ? '(optional)' : '(optioneel)'}</span></label>
+              <textarea id="bericht" name="Opmerking" placeholder="${en ? 'E.g. the reason, or whether you want to book a new ride.' : 'Bijv. de reden, of dat u een nieuwe rit wilt plannen.'}"></textarea>
+            </div>
+          </fieldset>
+
+          <label class="check consent"><input type="checkbox" id="akkoord" required><span>${en ? 'I agree to the' : 'Ik ga akkoord met de'} <a href="${base}/privacyverklaring" target="_blank" rel="noopener">${en ? 'privacy policy' : 'privacyverklaring'}</a>. ${en ? 'My details are only used to process this cancellation.' : 'Mijn gegevens worden alleen gebruikt om deze annulering te verwerken.'}</span></label>
+
+          <button type="submit" class="btn btn-yellow btn-full" id="submitBtn">${en ? 'Cancel ride' : 'Rit annuleren'}</button>
+          <p class="form-note">${en ? 'Is the ride very soon? Please call directly so we are sure to know:' : 'Is de rit al heel binnenkort? Bel dan liever direct, dan weten we het zeker:'} <a href="tel:${SITE.phoneTel}">${SITE.phoneDisplay}</a>.</p>
+          <p class="form-error" id="formError" role="alert" hidden></p>
+        </form>
+
+        <div class="form-success" id="formSuccess" role="status" hidden>
+          <div class="ok-badge">${svgCheck()}</div>
+          <h3>${en ? 'Thank you, your cancellation has been' : 'Bedankt, uw annulering is'} <span class="serif-i">${en ? 'received' : 'ontvangen'}</span></h3>
+          <p>${en ? "We'll process it as soon as possible. Is the ride very soon? Call directly to be sure:" : 'Wij verwerken deze zo snel mogelijk. Is de rit al heel binnenkort? Bel dan direct, dan weten we het zeker:'}</p>
+          <p><a class="btn btn-yellow" href="tel:${SITE.phoneTel}">${en ? 'Call' : 'Bel'} ${SITE.phoneDisplay}</a></p>
+          <p class="demo-note" id="demoNote" hidden>${en ? "Demo mode: no email address is linked to this form yet, so this cancellation wasn't actually sent." : 'Demo-modus: er is nog geen e-mailadres gekoppeld aan dit formulier, dus deze annulering is niet echt verstuurd.'}</p>
+        </div>
+      </div>
+
+      <aside>
+        <div class="aside-card reveal reveal-d1">
+          <p class="aside-alt">${en ? 'Prefer to cancel by phone?' : 'Liever telefonisch annuleren?'}<br><a href="tel:${SITE.phoneTel}">${SITE.phoneDisplay}</a><br>${en ? '24/7 available.' : '24/7 bereikbaar.'}</p>
+        </div>
+        <div class="aside-card reveal reveal-d2">
+          <p class="aside-alt">${en ? 'Prefer to message?' : 'Liever appen?'}<br><a href="https://wa.me/${SITE.whatsapp}">${ICONS.whatsapp} WhatsApp ${en ? 'us' : 'ons'}</a></p>
+        </div>
+        <div class="aside-card reveal reveal-d3">
+          <p class="aside-alt">${en ? 'Want to plan a different ride?' : 'Wilt u een andere rit plannen?'}<br><a href="${base}/contact">${en ? 'Book a ride' : 'Reserveer een rit'}</a></p>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var KEY = ${JSON.stringify(SITE.web3formsKey || '')};
+  var form = document.getElementById('cancelForm');
+  if (!form) return;
+  var btn = document.getElementById('submitBtn');
+  var err = document.getElementById('formError');
+  var ok = document.getElementById('formSuccess');
+  var demoNote = document.getElementById('demoNote');
+  var today = new Date(); today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
+  document.getElementById('datum').min = today.toISOString().slice(0, 10);
+
+  function showError(msg) { err.textContent = msg; err.hidden = false; }
+  function done(demo) {
+    form.hidden = true; ok.hidden = false;
+    if (demo) demoNote.hidden = false;
+    ok.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    err.hidden = true;
+    if (form.botcheck.checked) return;
+    if (!form.checkValidity()) {
+      form.classList.add('was-validated');
+      form.reportValidity();
+      return;
+    }
+    var data = {};
+    new FormData(form).forEach(function (v, k) { if (k !== 'botcheck' && v !== '') data[k] = v; });
+    var payload = Object.assign({
+      access_key: KEY,
+      subject: 'Nieuwe ritaanvraag: ANNULERING (' + (data['Naam'] || '') + ', ' + (data['Datum rit'] || '') + ' ' + (data['Ophaaltijd'] || '') + ')',
+      from_name: '${SITE.name} website'
+    }, data);
+    if (data['E-mail']) payload.replyto = data['E-mail'];
+    btn.disabled = true; var label = btn.textContent; btn.textContent = '${en ? 'Sending...' : 'Bezig met versturen...'}';
+
+    if (!KEY) {
+      setTimeout(function () { console.info('${en ? 'Demo: cancellation not sent' : 'Demo: annulering niet verstuurd'}', data); done(true); }, 700);
+      return;
+    }
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      if (j && j.success) done(false); else throw new Error((j && j.message) || 'error');
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = label;
+      showError('${en ? `Sending failed. Please try again or call directly: ${SITE.phoneDisplay}.` : `Versturen is niet gelukt. Probeer het opnieuw of bel direct naar ${SITE.phoneDisplay}.`}');
+    });
+  });
+})();
+</script>`;
+}
+
 /* ============================== OVER ONS PAGE ============================== */
 
 function buildOverOnsBody(locale = 'nl') {
@@ -1720,6 +1881,10 @@ function buildOverOnsBody(locale = 'nl') {
       <span class="eyebrow">${en ? 'About us' : 'Over ons'}</span>
       <h1>${en ? 'The emergency branch of' : 'De spoedtak van'} <span class="serif-i">${SITE.parentBrand}</span></h1>
       <p class="lead">${en ? `The same experience and the same vehicles as ${SITE.parentBrand}, specially arranged for rides that couldn't wait.` : `Dezelfde ervaring en dezelfde bussen als ${SITE.parentBrand}, speciaal ingericht op ritten die niet konden wachten.`}</p>
+      <div class="hero-cta hero-cta-main">
+        <a href="${base}/contact" class="btn btn-yellow">${en ? 'Book now' : 'Reserveer nu'}</a>
+        <a href="tel:${SITE.phoneTel}" class="btn btn-ghost">${ICONS.phoneCall}${en ? 'Call now' : 'Bel direct'}</a>
+      </div>
     </div>
   </div>
 </header>
@@ -1785,6 +1950,10 @@ function buildTarievenBody(locale = 'nl') {
     <span class="eyebrow reveal">${en ? 'Transparent' : 'Transparant'}</span>
     <h1 class="reveal reveal-d1">${en ? 'Our' : 'Onze'} <span class="serif-i">${en ? 'rates' : 'tarieven'}</span></h1>
     <p class="lead reveal reveal-d2">${en ? "Even for an emergency: you always hear the price on the phone beforehand. No surprises afterwards." : 'Ook bij spoed geldt: u hoort de prijs altijd vooraf aan de telefoon. Geen verrassingen achteraf.'}</p>
+    <div class="hero-cta hero-cta-main">
+      <a href="${base}/contact" class="btn btn-yellow">${en ? 'Book now' : 'Reserveer nu'}</a>
+      <a href="tel:${SITE.phoneTel}" class="btn btn-ghost">${ICONS.phoneCall}${en ? 'Call now' : 'Bel direct'}</a>
+    </div>
   </div>
 </header>
 
@@ -1920,6 +2089,10 @@ function buildFaqBody(locale = 'nl') {
     <span class="eyebrow reveal">${en ? 'Frequently asked questions' : 'Veelgestelde vragen'}</span>
     <h1 class="reveal reveal-d1">${en ? 'Everything you want to' : 'Alles wat u wilt'} <span class="serif-i">${en ? 'know' : 'weten'}</span></h1>
     <p class="lead reveal reveal-d2">${en ? "Don't see your question? Feel free to call or message us, we're happy to help." : 'Staat uw vraag er niet bij? Bel of app ons gerust, we denken graag mee.'}</p>
+    <div class="hero-cta hero-cta-main">
+      <a href="${base}/contact" class="btn btn-yellow">${en ? 'Book now' : 'Reserveer nu'}</a>
+      <a href="tel:${SITE.phoneTel}" class="btn btn-ghost">${ICONS.phoneCall}${en ? 'Call now' : 'Bel direct'}</a>
+    </div>
   </div>
 </header>
 
@@ -2063,6 +2236,8 @@ const EN_TITLES = {
   contactDesc: '24/7 available in the Netherlands, with a wheelchair-accessible vehicle, electric ramp and the price named beforehand.',
   overOns: 'About us | Rolstoeltaxi Spoed, emergency branch of Rolstoeltaxi Holland',
   overOnsDesc: 'Meet Rolstoeltaxi Spoed: the emergency branch of Rolstoeltaxi Holland. The same experienced drivers, set up to switch quickly during an emergency.',
+  annuleren: 'Cancel your ride | Rolstoeltaxi Spoed',
+  annulerenDesc: 'Cancel a booked ride with Rolstoeltaxi Spoed. Fill in the form or call us, so we can inform the driver in time.',
   tarieven: 'Rates | Rolstoeltaxi Spoed',
   tarievenDesc: 'How is the price of a ride with Rolstoeltaxi Spoed built up? Transparent and always named beforehand, even for emergencies. Call for a tailored price.',
   faq: 'Frequently asked questions | Rolstoeltaxi Spoed',
@@ -2169,6 +2344,18 @@ function writeAllPages(locale) {
     locale,
   }));
 
+  fs.writeFileSync(path.join(root, 'rit-annuleren.html'), page({
+    title: en ? EN_TITLES.annuleren : 'Rit annuleren | Rolstoeltaxi Spoed',
+    description: en ? EN_TITLES.annulerenDesc : 'Annuleer een geboekte rit bij Rolstoeltaxi Spoed. Vul het formulier in of bel ons, dan kunnen wij de chauffeur op tijd informeren.',
+    canonicalPath: en ? 'en/rit-annuleren' : 'rit-annuleren',
+    prefix: '',
+    extraLd: breadcrumbLd([{ label: 'Home', url: `${SITE.domain}${base}/` }, { label: en ? 'Cancel ride' : 'Rit annuleren' }]),
+    bodyHtml: buildAnnulerenBody(locale),
+    skipSticky: true,
+    skipFaq: true,
+    locale,
+  }));
+
   fs.writeFileSync(path.join(root, 'over-ons.html'), page({
     title: en ? EN_TITLES.overOns : 'Over ons | Rolstoeltaxi Spoed, spoedtak van Rolstoeltaxi Holland',
     description: en ? EN_TITLES.overOnsDesc : 'Maak kennis met Rolstoeltaxi Spoed: de spoedtak van Rolstoeltaxi Holland. Dezelfde ervaren chauffeurs, ingericht op snel schakelen bij spoed.',
@@ -2233,7 +2420,7 @@ writeAllPages('en');
 
 /* ============================== SITEMAP & ROBOTS ============================== */
 
-const staticPages = ['', 'diensten', 'locaties', 'over-ons', 'tarieven', 'contact', 'veelgestelde-vragen', 'privacyverklaring'];
+const staticPages = ['', 'diensten', 'locaties', 'over-ons', 'tarieven', 'rit-annuleren', 'contact', 'veelgestelde-vragen', 'privacyverklaring'];
 const urls = [
   ...staticPages.map(p => `${SITE.domain}/${p}`),
   ...SERVICES.map(s => `${SITE.domain}/diensten/${s.slug}`),
